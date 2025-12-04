@@ -44,29 +44,23 @@ body {
 /* 3. CORNER IMAGES (Decor)     */
 /* ============================ */
 .corner-img {
-    /* ✅ FIXED: Sticks to the screen corners */
-    position: fixed; 
-    
-    /* ✅ SMALLER SIZE: Won't dominate the screen */
+    position: fixed;
     width: 120px; 
     height: auto;
-    
-    /* ✅ BEHIND: Sits behind the white box */
-    z-index: 1; 
-    
+    z-index: 1;
     opacity: 0.85;
-    pointer-events: none; /* Clicks go through them */
+    pointer-events: none;
 }
 
-.top-left {
-    top: 15px;
-    left: 15px;
-    transform: rotate(-10deg);
+.bottom-left {
+    bottom: 10px;
+    left: 10px;
+    transform: rotate(-10deg); 
 }
 
 .bottom-right {
-    bottom: 15px;
-    right: 15px;
+    bottom: 10px;
+    right: 10px;
     transform: rotate(10deg);
 }
 
@@ -194,3 +188,4 @@ header {
     transition: 0.3s;
 }
 .delete-btn:hover { color: #e17055; transform: scale(1.1); }
+
