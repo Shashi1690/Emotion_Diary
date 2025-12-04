@@ -1,5 +1,5 @@
 // =========================================================
-// 1. IMPORTS (Now includes deleteDoc)
+// 1. IMPORT FIREBASE TOOLS
 // =========================================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { 
@@ -13,8 +13,8 @@ import {
     getFirestore, 
     collection, 
     addDoc, 
-    deleteDoc, // <--- Used to delete
-    doc,       // <--- Used to find the specific note
+    deleteDoc, 
+    doc,
     query, 
     orderBy, 
     onSnapshot, 
@@ -25,23 +25,16 @@ import {
 // 2. CONFIGURATION
 // =========================================================
 const firebaseConfig = {
-    // 🔴 PASTE YOUR REAL FIREBASE KEYS HERE 🔴
-    apiKey: "AIzaSyB4AkivpThDPwokA4LLHoIZenyEr2E29t8",
-
-  authDomain: "my-emotion-diary-f017d.firebaseapp.com",
-
-  projectId: "my-emotion-diary-f017d",
-
-  storageBucket: "my-emotion-diary-f017d.firebasestorage.app",
-
-  messagingSenderId: "635844173948",
-
-  appId: "1:635844173948:web:2690b78b62243e5e93a9f9",
-
-  measurementId: "G-YF68FPLWNL"
+    // 🔴 IMPORTANT: PASTE YOUR REAL KEYS HERE AGAIN 🔴
+    apiKey: "YOUR_API_KEY_HERE",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "NUMBERS",
+    appId: "NUMBERS"
 };
 
-// Initialize
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -51,43 +44,53 @@ const db = getFirestore(app);
 // =========================================================
 const authSection = document.getElementById('auth-section');
 const diarySection = document.getElementById('diary-section');
+
 const emailInput = document.getElementById('email-input');
 const passInput = document.getElementById('pass-input');
+
 const loginBtn = document.getElementById('login-btn');
 const signupBtn = document.getElementById('signup-btn');
 const logoutBtn = document.getElementById('logout-btn');
+
 const saveBtn = document.getElementById('save-btn');
 const noteText = document.getElementById('note-text');
 const notesList = document.getElementById('notes-list');
 const errorMsg = document.getElementById('error-msg');
 
 // =========================================================
-// 4. AUTH & NAVIGATION
+// 4. AUTH & NAVIGATION (The Memory)
 // =========================================================
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        // Logged In
         authSection.classList.add('hidden');
         diarySection.classList.remove('hidden');
         loadNotes(user.uid);
     } else {
+        // Logged Out
         authSection.classList.remove('hidden');
         diarySection.classList.add('hidden');
         notesList.innerHTML = '';
     }
 });
 
+// --- LOGIN ---
 loginBtn.addEventListener('click', () => {
     signInWithEmailAndPassword(auth, emailInput.value, passInput.value)
-        .catch((err) => errorMsg.innerText = err.message);
+        .catch((err) => errorMsg.innerText = getErrorMessage(err));
 });
 
+// --- SIGN UP ---
 signupBtn.addEventListener('click', () => {
     createUserWithEmailAndPassword(auth, emailInput.value, passInput.value)
-        .then(() => alert("Account Created!"))
-        .catch((err) => errorMsg.innerText = err.message);
+        .then(() => alert("Account Created! You are now logged in."))
+        .catch((err) => errorMsg.innerText = getErrorMessage(err));
 });
 
-logoutBtn.addEventListener('click', () => signOut(auth));
+// --- LOG OUT ---
+logoutBtn.addEventListener('click', () => {
+    signOut(auth);
+});
 
 // =========================================================
 // 5. SAVE NOTE
@@ -99,17 +102,18 @@ saveBtn.addEventListener('click', async () => {
     try {
         await addDoc(collection(db, "emotions"), {
             text: text,
-            uid: auth.currentUser.uid,
+            uid: auth.currentUser.uid, // Tag note with User ID
             createdAt: serverTimestamp()
         });
         noteText.value = ""; 
     } catch (e) {
         console.error("Error saving: ", e);
+        alert("Could not save note.");
     }
 });
 
 // =========================================================
-// 6. LOAD NOTES (With Delete Button)
+// 6. LOAD NOTES
 // =========================================================
 function loadNotes(userId) {
     const q = query(
@@ -121,12 +125,12 @@ function loadNotes(userId) {
         notesList.innerHTML = "";
         snapshot.forEach((documentSnapshot) => {
             const data = documentSnapshot.data();
-            const noteId = documentSnapshot.id; // The unique ID of the note
+            const noteId = documentSnapshot.id;
             
+            // Only show notes for THIS user
             if(data.uid === userId) {
                 const date = data.createdAt ? data.createdAt.toDate().toLocaleString() : "Just now";
                 
-                // We add the Trash Icon (🗑️) inside the HTML
                 const html = `
                     <div class="note-card">
                         <div class="note-header">
@@ -143,22 +147,37 @@ function loadNotes(userId) {
 }
 
 // =========================================================
-// 7. DELETE FUNCTIONALITY
+// 7. DELETE WITH SECRET KEY
 // =========================================================
 notesList.addEventListener('click', async (e) => {
-    // Check if the clicked item is the Delete Button
+    // Check if clicked element is delete button
     if (e.target.classList.contains('delete-btn')) {
         const idToDelete = e.target.getAttribute('data-id');
         
-        // Ask for confirmation
-        if (confirm("Delete this note forever?")) {
+        // --- 🔒 CHANGE YOUR PASSWORD HERE ---
+        const SECRET_KEY = "1234"; 
+        // ------------------------------------
+
+        const userEnteredKey = prompt("🔒 Enter the Secret Key to delete:");
+
+        if (userEnteredKey === SECRET_KEY) {
             try {
-                // Delete from Firebase
                 await deleteDoc(doc(db, "emotions", idToDelete));
+                console.log("Deleted");
             } catch (error) {
                 console.error("Error deleting:", error);
-                alert("Could not delete note.");
+                alert("Could not delete.");
             }
+        } else if (userEnteredKey !== null) {
+            alert("❌ Wrong Key!");
         }
     }
 });
+
+// Helper for cleaner error messages
+function getErrorMessage(error) {
+    if (error.code === "auth/wrong-password") return "Incorrect Password.";
+    if (error.code === "auth/user-not-found") return "User not found.";
+    if (error.code === "auth/email-already-in-use") return "Email already exists.";
+    return error.message;
+}
