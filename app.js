@@ -25,13 +25,20 @@ import {
 // 2. CONFIGURATION
 // =========================================================
 const firebaseConfig = {
-    // 🔴 IMPORTANT: PASTE YOUR REAL KEYS HERE AGAIN 🔴
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "NUMBERS",
-    appId: "NUMBERS"
+   apiKey: "AIzaSyB4AkivpThDPwokA4LLHoIZenyEr2E29t8",
+
+  authDomain: "my-emotion-diary-f017d.firebaseapp.com",
+
+  projectId: "my-emotion-diary-f017d",
+
+  storageBucket: "my-emotion-diary-f017d.firebasestorage.app",
+
+  messagingSenderId: "635844173948",
+
+  appId: "1:635844173948:web:2690b78b62243e5e93a9f9",
+
+  measurementId: "G-YF68FPLWNL"
+
 };
 
 // Initialize Firebase
@@ -155,7 +162,7 @@ notesList.addEventListener('click', async (e) => {
         const idToDelete = e.target.getAttribute('data-id');
         
         // --- 🔒 CHANGE YOUR PASSWORD HERE ---
-        const SECRET_KEY = "1234"; 
+        const SECRET_KEY = "1690"; 
         // ------------------------------------
 
         const userEnteredKey = prompt("🔒 Enter the Secret Key to delete:");
@@ -181,3 +188,4 @@ function getErrorMessage(error) {
     if (error.code === "auth/email-already-in-use") return "Email already exists.";
     return error.message;
 }
+
