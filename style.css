@@ -1,22 +1,70 @@
-/* General Styling */
+/* ============================ */
+/* 1. BACKGROUND IMAGE SETTINGS */
+/* ============================ */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #e0f7fa; 
+    
+    /* BACKGROUND IMAGE URL */
+    background-image: url('https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?_gl=1*1yixh9u*_ga*MTQ5NjMyMjIxNy4xNzI4MzE3MTE3*_ga_8JE65Q40S6*czE3NjQ4NDA5ODckbzMkZzAkdDE3NjQ4NDA5ODckajYwJGwwJGgw'); 
+    
+    /* Make the background cover the whole screen and stay fixed */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
     margin: 0;
     display: flex;
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
+    position: relative; /* Needed for corner images */
 }
 
+/* ============================ */
+/* 2. CORNER IMAGES SETTINGS    */
+/* ============================ */
+.corner-img {
+    position: fixed; /* Stick to the screen even when scrolling */
+    width: 150px;    /* Size of the image */
+    height: auto;
+    z-index: -1;     /* Put them BEHIND the white box */
+    opacity: 0.8;    /* Slight transparency */
+    pointer-events: none; /* Let clicks pass through them */
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    transform: rotate(-10deg); /* Tilt slightly */
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: rotate(10deg); /* Tilt slightly */
+}
+
+/* On Mobile, make them smaller so they don't hide text */
+@media (max-width: 600px) {
+    .corner-img {
+        width: 100px;
+        opacity: 0.5;
+    }
+}
+
+/* ============================ */
+/* 3. EXISTING STYLES (Keep these) */
+/* ============================ */
 .container {
-    background: white;
+    background: rgba(255, 255, 255, 0.95); /* Make white box slightly see-through */
     width: 100%;
     max-width: 450px;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     height: fit-content;
+    backdrop-filter: blur(5px); /* Blurs the background behind the box */
 }
 
 h1, h2 { margin-top: 0; color: #333; }
@@ -31,14 +79,15 @@ input, textarea {
     border-radius: 8px;
     box-sizing: border-box;
     font-size: 16px;
+    font-family: inherit;
 }
 
-textarea { height: 120px; resize: none; font-family: inherit; }
+textarea { height: 120px; resize: none; }
 
 button {
     width: 100%;
     padding: 12px;
-    background-color: #00796b; 
+    background-color: #6c5ce7; /* Changed to a nice Purple */
     color: white;
     border: none;
     border-radius: 8px;
@@ -46,21 +95,24 @@ button {
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 10px;
+    transition: 0.3s;
 }
 
-button:hover { background-color: #004d40; }
+button:hover { background-color: #5649c0; }
 
 .secondary-btn {
     background-color: #fff;
-    color: #00796b;
-    border: 2px solid #00796b;
+    color: #6c5ce7;
+    border: 2px solid #6c5ce7;
 }
+
+.secondary-btn:hover { background-color: #f0edff; }
 
 .small-btn {
     width: auto;
     padding: 5px 15px;
     font-size: 14px;
-    background-color: #d32f2f; /* Red for logout */
+    background-color: #d63031;
 }
 
 #error-msg { color: red; font-size: 14px; text-align: center; }
@@ -75,17 +127,16 @@ header {
     padding-bottom: 10px;
 }
 
-/* --- NOTE CARD STYLING --- */
+/* Note Cards */
 .note-card {
-    background-color: #fff3e0; 
+    background-color: #fff;
     padding: 15px;
     border-radius: 10px;
     margin-top: 15px;
-    border-left: 5px solid #ff9800;
-    position: relative; /* Needed for positioning */
+    border-left: 5px solid #fdcb6e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Flexbox for Date and Delete button */
 .note-header {
     display: flex;
     justify-content: space-between;
@@ -93,24 +144,12 @@ header {
     margin-bottom: 8px;
 }
 
-.timestamp { 
-    font-size: 12px; 
-    color: #757575; 
-}
+.timestamp { font-size: 12px; color: #b2bec3; }
 
-/* The Delete Button (Trash Can) */
 .delete-btn {
     background: none;
-    color: #e53935; /* Red */
+    color: #e17055;
     border: none;
     font-size: 18px;
     cursor: pointer;
-    padding: 0 5px;
-    width: auto;
-    margin: 0;
-}
-
-.delete-btn:hover {
-    background-color: #ffebee; /* Light red hover */
-    border-radius: 4px;
 }
