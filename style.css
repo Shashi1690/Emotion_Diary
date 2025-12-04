@@ -25,23 +25,23 @@ body {
 /* 2. CORNER IMAGES SETTINGS    */
 /* ============================ */
 .corner-img {
-    position: absolute;/* Stick to the screen even when scrolling */
-    width: 150px;    /* Size of the image */
+    position: fixed;/* Stick to the screen even when scrolling */
+    width: 110px;    /* Size of the image */
     height: auto;
-    z-index: 0;     /* Put them BEHIND the white box */
+    z-index: -1;     /* Put them BEHIND the white box */
     opacity: 0.8;    /* Slight transparency */
     pointer-events: none; /* Let clicks pass through them */
 }
 
 .top-left {
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
     transform: rotate(-10deg); /* Tilt slightly */
 }
 
 .bottom-right {
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 10px;
     transform: rotate(10deg); /* Tilt slightly */
 }
 
@@ -57,16 +57,16 @@ body {
 /* 3. EXISTING STYLES (Keep these) */
 /* ============================ */
 .container {
-    background: rgba(255, 255, 255, 0.95); /* Make white box slightly see-through */
+    background: rgba(255, 255, 255, 0.95);
     width: 100%;
-    max-width: 450px;
+    max-width: 380px;
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     height: fit-content;
-    backdrop-filter: blur(5px); /* Blurs the background behind the box */
     position: relative;
-    overflow: hidden;
+    
+    z-index: 10;
 }
 
 h1, h2 { margin-top: 0; color: #333; }
@@ -164,5 +164,6 @@ header {
     font-size: 18px;
     cursor: pointer;
 }
+
 
 
