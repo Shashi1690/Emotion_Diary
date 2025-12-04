@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Diary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div id="auth-section">
+            <h1>My Safe Space 🔒</h1>
+            <p>Write your emotions securely.</p>
+            
+            <input type="email" id="email-input" placeholder="Email Address">
+            <input type="password" id="pass-input" placeholder="Password">
+            
+            <div class="btn-group">
+                <button id="login-btn">Log In</button>
+                <button id="signup-btn" class="secondary-btn">Sign Up</button>
+            </div>
+            
+            <p id="error-msg"></p>
+        </div>
+
+        <div id="diary-section" class="hidden">
+            <header>
+                <h2>My Notes</h2>
+                <button id="logout-btn" class="small-btn">Log Out</button>
+            </header>
+
+            <div class="write-area">
+                <textarea id="note-text" placeholder="How are you feeling right now?"></textarea>
+                <button id="save-btn">Save Entry</button>
+            </div>
+
+            <div id="notes-list">
+                </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
