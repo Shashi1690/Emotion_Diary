@@ -25,10 +25,10 @@ body {
 /* 2. CORNER IMAGES SETTINGS    */
 /* ============================ */
 .corner-img {
-    position: fixed; /* Stick to the screen even when scrolling */
+    position: absolute;/* Stick to the screen even when scrolling */
     width: 150px;    /* Size of the image */
     height: auto;
-    z-index: -1;     /* Put them BEHIND the white box */
+    z-index: 0;     /* Put them BEHIND the white box */
     opacity: 0.8;    /* Slight transparency */
     pointer-events: none; /* Let clicks pass through them */
 }
@@ -65,6 +65,8 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     height: fit-content;
     backdrop-filter: blur(5px); /* Blurs the background behind the box */
+    position: relative;
+    overflow: hidden;
 }
 
 h1, h2 { margin-top: 0; color: #333; }
@@ -122,7 +124,10 @@ button:hover { background-color: #5649c0; }
 }
 
 #error-msg { color: red; font-size: 14px; text-align: center; }
-
+#auth-section, #diary-section {
+    position: relative;
+    z-index: 1;
+}
 /* Header Layout */
 header {
     display: flex;
@@ -159,4 +164,5 @@ header {
     font-size: 18px;
     cursor: pointer;
 }
+
 
