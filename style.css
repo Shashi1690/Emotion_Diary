@@ -1,13 +1,13 @@
 /* ============================ */
-/* 1. BACKGROUND IMAGE SETTINGS */
+/* 1. BACKGROUND & BODY         */
 /* ============================ */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
-    /* BACKGROUND IMAGE URL */
+    /* Your Background Image */
     background-image: url('https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?_gl=1*1yixh9u*_ga*MTQ5NjMyMjIxNy4xNzI4MzE3MTE3*_ga_8JE65Q40S6*czE3NjQ4NDA5ODckbzMkZzAkdDE3NjQ4NDA5ODckajYwJGwwJGgw'); 
+
     
-    /* Make the background cover the whole screen and stay fixed */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -18,155 +18,179 @@ body {
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
-    position: relative; /* Needed for corner images */
 }
 
 /* ============================ */
-/* 2. CORNER IMAGES SETTINGS    */
+/* 2. MAIN CONTAINER (White Box)*/
+/* ============================ */
+.container {
+    background: rgba(255, 255, 255, 0.96); /* High opacity to hide images behind text */
+    width: 100%;
+    
+    /* ✅ NARROWER WIDTH: Makes space for images on sides */
+    max-width: 380px; 
+    
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    height: fit-content;
+    
+    /* ✅ LAYERING: This box sits ON TOP of the images */
+    position: relative;
+    z-index: 10; 
+}
+
+/* ============================ */
+/* 3. CORNER IMAGES (Decor)     */
 /* ============================ */
 .corner-img {
+    /* ✅ FIXED: Sticks to the screen corners */
     position: fixed; 
     
-    width: 110px;
+    /* ✅ SMALLER SIZE: Won't dominate the screen */
+    width: 120px; 
     height: auto;
-    z-index: -1; 
     
-    opacity: 0.8;
-    pointer-events: none;
+    /* ✅ BEHIND: Sits behind the white box */
+    z-index: 1; 
+    
+    opacity: 0.85;
+    pointer-events: none; /* Clicks go through them */
 }
+
 .top-left {
-    top: 10px;
-    left: 10px;
-    transform: rotate(-10deg); 
+    top: 15px;
+    left: 15px;
+    transform: rotate(-10deg);
 }
 
 .bottom-right {
-    bottom: 10px;
-    right: 10px;
-    transform: rotate(10deg); /* Tilt slightly */
+    bottom: 15px;
+    right: 15px;
+    transform: rotate(10deg);
 }
 
-/* On Mobile, make them smaller so they don't hide text */
-@media (max-width: 600px) {
+/* On very small phones, shrink images further */
+@media (max-width: 400px) {
     .corner-img {
-        width: 100px;
-        opacity: 0.5;
+        width: 90px;
+        opacity: 0.6;
     }
 }
 
 /* ============================ */
-/* 3. EXISTING STYLES (Keep these) */
+/* 4. TEXT & INPUTS             */
 /* ============================ */
-.container {
-    background: rgba(255, 255, 255, 0.95);
-    width: 100%;
-    max-width: 380px;
-    
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    height: fit-content;
-    position: relative;
-    
-    
-    z-index: 10;
-}
-
-h1, h2 { margin-top: 0; color: #333; }
-.hidden { display: none; }
-h5 {
-    margin-top: -15px; /* Pulls it closer to the main title */
-    margin-bottom: 20px;
-    color: #7f8c8d;    /* Gray color */
-    text-align: center;
+h1, h2 { margin-top: 0; color: #333; text-align: center; }
+h5 { 
+    margin-top: -10px; 
+    margin-bottom: 25px; 
+    color: #7f8c8d; 
+    text-align: center; 
     font-weight: normal;
+    font-size: 0.9rem;
 }
-/* Inputs and Buttons */
+.hidden { display: none; }
+
+/* Styling for Inputs */
 input, textarea {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 2px solid #eee;
+    border-radius: 10px;
     box-sizing: border-box;
     font-size: 16px;
-    font-family: inherit;
+    background: #fdfdfd;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #6c5ce7;
+    outline: none;
+    background: #fff;
 }
 
 textarea { height: 120px; resize: none; }
 
+/* ============================ */
+/* 5. BUTTONS                   */
+/* ============================ */
 button {
     width: 100%;
     padding: 12px;
-    background-color: #6c5ce7; /* Changed to a nice Purple */
+    background-color: #6c5ce7; /* Royal Purple */
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 10px;
-    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);
+    transition: transform 0.2s;
 }
 
-button:hover { background-color: #5649c0; }
-
-.secondary-btn {
-    background-color: #fff;
-    color: #6c5ce7;
-    border: 2px solid #6c5ce7;
+button:hover { 
+    background-color: #5649c0; 
+    transform: translateY(-2px);
 }
 
+.secondary-btn { 
+    background-color: #fff; 
+    color: #6c5ce7; 
+    border: 2px solid #6c5ce7; 
+    box-shadow: none;
+}
 .secondary-btn:hover { background-color: #f0edff; }
 
-.small-btn {
-    width: auto;
-    padding: 5px 15px;
-    font-size: 14px;
-    background-color: #d63031;
+.small-btn { 
+    width: auto; 
+    padding: 6px 16px; 
+    font-size: 14px; 
+    background-color: #d63031; /* Red */
+    box-shadow: 0 4px 6px rgba(214, 48, 49, 0.2);
 }
 
-#error-msg { color: red; font-size: 14px; text-align: center; }
-#auth-section, #diary-section {
-    position: relative;
-    z-index: 1;
-}
-/* Header Layout */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+#error-msg { color: #e74c3c; font-size: 14px; text-align: center; margin-top: 10px; }
+
+/* ============================ */
+/* 6. NOTE CARDS                */
+/* ============================ */
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 15px; 
 }
 
-/* Note Cards */
 .note-card {
     background-color: #fff;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 15px;
-    border-left: 5px solid #fdcb6e;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 5px solid #fdcb6e; /* Orange Accent */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    position: relative;
 }
 
-.note-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
+.note-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 8px; 
 }
 
 .timestamp { font-size: 12px; color: #b2bec3; }
 
-.delete-btn {
-    background: none;
-    color: #e17055;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
+.delete-btn { 
+    background: none; 
+    color: #fab1a0; 
+    border: none; 
+    font-size: 18px; 
+    cursor: pointer; 
+    transition: 0.3s;
 }
-
-
-
+.delete-btn:hover { color: #e17055; transform: scale(1.1); }
